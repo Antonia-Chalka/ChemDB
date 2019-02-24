@@ -12,7 +12,7 @@ import chemaxon.struc.Molecule;
 
 public class DatabaseConnector {	
 	private final String USERNAME = "test";
-	private final String PASSWORD = "test";
+	private final String PASSWORD = null;
 	private final String HOST = "jdbc:mysql://localhost:3306/StructureDB";
     private final String QUERY = "Select cd_smiles,cd_id from structuredb.test";
     
@@ -42,7 +42,7 @@ public class DatabaseConnector {
 		}
 	}	
 		
-	public void runQuery(){
+	private void runQuery(){
 	    try {
 	        stmt = conn.createStatement();
 	        ResultSet rs = stmt.executeQuery(QUERY);

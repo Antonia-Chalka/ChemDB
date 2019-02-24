@@ -31,7 +31,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GUI {
-	//TODO ADD LABEL ABOUT LAPINSKI'S RULES
 	DatabaseConnector conn = new DatabaseConnector(); //Connect to database
 	private JFrame frame;
 	private JPanel upperPanel, centrePanel, bottomPanel, displayPanel, filterPanel, resultsPanel ;
@@ -41,6 +40,7 @@ public class GUI {
 	private TableRowSorter<TableModel> sorter;
 	private ArrayList<MoleculeData> molecules = conn.getMolecules();
 	private JLabel filterLabel;
+	private ChemTableModel tableModel;
 
 	public static void main (String[] args){ 
 		EventQueue.invokeLater(new Runnable() {//prepare everything in GUI and then run it
@@ -244,7 +244,7 @@ public class GUI {
 	}
 
 	private void setupTablePanel() {
-		TableModel tableModel = new ChemTableModel(molecules);
+		tableModel = new ChemTableModel(molecules);
 		resultsTable = new JTable(tableModel);
 		resultsTable.setRowSelectionAllowed(true); //allow user to highlight rows
 		resultsTable.getTableHeader().setReorderingAllowed(false); //Stop user from reordering columns
@@ -355,7 +355,7 @@ public class GUI {
 	}
 	
 	//Create a comma delineated csv file of the table data (include ALL columns but ONLY displayed rows), fired when export button is pressed
-	public void exportToCSV(JTable tableToExport, String pathToExportTo) {
+	private void exportToCSV(String pathToExportTo) {
 	    try {
 	        FileWriter csv = new FileWriter(new File(pathToExportTo));
 	        for (int i = 0; i < resultsTable.getColumnCount(); i++) {//get Column names to use as headers
